@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -21,7 +22,7 @@ public class GameManager : MonoBehaviour
     }
 
     private int collectedCoins;
-    private int victoryCondition = 10;
+    private int victoryCondition = 12;
 
     private void Awake()
     {
@@ -45,5 +46,24 @@ public class GameManager : MonoBehaviour
     {
         this.collectedCoins += coins;
         UIManager.Instance.UpdateCoinUI(collectedCoins, victoryCondition);
+    }
+
+    public void ResetCoins()
+    {
+        this.collectedCoins = 0;
+        UIManager.Instance.UpdateCoinUI(collectedCoins, victoryCondition);
+    }
+
+    public void Finish()
+    {
+        if (collectedCoins >= victoryCondition)
+        {
+            SceneManager.LoadScene("SampleScene");
+            this.ResetCoins();
+        }
+        else
+        {
+            UIManager.Instance.ShowVictoryConditionUI(collectedCoins, victoryCondition);
+        }
     }
 }

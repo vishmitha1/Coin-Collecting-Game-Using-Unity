@@ -75,6 +75,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.CompareTag("FallDetection"))
         {
+            GameManager.Instance.ResetCoins();
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
